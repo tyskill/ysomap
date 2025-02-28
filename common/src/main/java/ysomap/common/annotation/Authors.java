@@ -30,6 +30,7 @@ public @interface Authors {
     String JANG = "Jang";
     String whocansee = "whocansee";
     String TYSKILL = "tyskill";
+    String APE1RON = "Ape1ron";
 
     String[] value() default {};
 

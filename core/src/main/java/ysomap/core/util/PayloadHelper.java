@@ -47,13 +47,21 @@ public class PayloadHelper {
         return iface.cast(Proxy.newProxyInstance(PayloadHelper.class.getClassLoader(), allIfaces, ih));
     }
 
-    public static Object makeSpringAOPProxy(Class<?> clazz, Object obj) throws Exception {
+    public static Object makeSpringAOPProxy(Object obj, Class<?>... clazz) throws Exception {
         AdvisedSupport advisedSupport = new AdvisedSupport();
         advisedSupport.setTarget(obj);
         InvocationHandler handler =
                 (InvocationHandler) ReflectionHelper.createWithoutConstructor("org.springframework.aop.framework.JdkDynamicAopProxy");
         ReflectionHelper.setFieldValue(handler, "advised", advisedSupport);
-        return Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{clazz}, handler);
+        return Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), clazz, handler);
+    }
+
+    public static Object makeSpringAOPProxy(Object obj, AdvisedSupport advisedSupport, Class<?>... clazz) throws Exception {
+        advisedSupport.setTarget(obj);
+        InvocationHandler handler =
+                (InvocationHandler) ReflectionHelper.createWithoutConstructor("org.springframework.aop.framework.JdkDynamicAopProxy");
+        ReflectionHelper.setFieldValue(handler, "advised", advisedSupport);
+        return Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), clazz, handler);
     }
 
 

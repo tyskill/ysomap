@@ -51,7 +51,8 @@ public class SpringAOP1 extends AbstractPayload<Object> {
         AdvisedSupport advisedSupport = new AdvisedSupport();
         // Spring 5.x 需要用到 advisors 成员字段
         ReflectionHelper.setFieldValue(advisedSupport, "advisors", advisors);
-        // Spring 4.x 需要用到 advisorArray 成员字段
+        // Spring 4.x 需要用到 advisorArray 成员字段.
+        // 注: Spring 5.x 不存在该成员字段，但也不影响反序列化过程.
         ReflectionHelper.setFieldValue(advisedSupport, "advisorArray", new Advisor[]{advisor});
         // 提供 interceptors
         Object advisorChainFactory = ReflectionHelper.createWithoutConstructor("org.springframework.aop.framework.DefaultAdvisorChainFactory");
